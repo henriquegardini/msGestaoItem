@@ -12,8 +12,6 @@ import techclallenge5.fiap.com.msGestaoItem.model.Item;
 import techclallenge5.fiap.com.msGestaoItem.repository.ItemRepository;
 import techclallenge5.fiap.com.msGestaoItem.utils.ItemHelper;
 
-import static org.mockito.Mockito.when;
-
 class ItemServiceImplTest {
 
     @InjectMocks
@@ -78,8 +76,9 @@ class ItemServiceImplTest {
         var itemGerado = ItemHelper.gerarItem();
         BDDMockito.when(itemRepository.findById(itemGerado.getId()))
                 .thenReturn(Mono.just(itemGerado));
+        var itemSalvo = ItemHelper.gerarItemAtualizacao();
 
-        StepVerifier.create(itemServiceImpl.atualizarItem(ItemHelper.gerarItemAtualizacao()))
+        StepVerifier.create(itemServiceImpl.atualizarItem(itemSalvo))
                 .expectSubscription()
                 .verifyComplete();
     }
