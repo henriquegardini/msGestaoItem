@@ -1,7 +1,11 @@
 package techclallenge5.fiap.com.msGestaoItem.model;
 
 import jakarta.validation.constraints.NotEmpty;
-import lombok.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -18,13 +22,13 @@ public class Item {
     @NotEmpty(message = "a descrição não pode estar vazia.")
     private String descricao;
 
-    @NotEmpty(message = "a quantidade não pode estar vazia.")
+    @NotNull(message = "a quantidade não pode estar vazia.")
     private Integer quantidade;
 
-    @NotEmpty(message = "o preço unitário não pode estar vazio.")
+    @NotNull(message = "o preço unitário não pode estar vazio.")
     private Double precoUnitario;
 
-    @NotEmpty(message = "o preço total não pode estar vazio.")
+    @NotNull(message = "o preço total não pode estar vazio.")
     private Double precoTotal;
 
     @Override

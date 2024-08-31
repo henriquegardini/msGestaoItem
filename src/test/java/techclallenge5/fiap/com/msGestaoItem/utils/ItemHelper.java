@@ -16,6 +16,16 @@ public abstract class ItemHelper {
                 .build();
     }
 
+    public static Item gerarItemNaoExistente() {
+        return Item.builder()
+                .id("2")
+                .descricao("descricao")
+                .quantidade(1)
+                .precoUnitario(100.0)
+                .precoTotal(100.0)
+                .build();
+    }
+
     public static Item gerarItemAtualizacao() {
         return Item.builder()
                 .id("1")

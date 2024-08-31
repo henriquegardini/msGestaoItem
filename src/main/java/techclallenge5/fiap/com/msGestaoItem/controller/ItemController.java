@@ -1,7 +1,8 @@
 package techclallenge5.fiap.com.msGestaoItem.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -16,28 +17,30 @@ public class ItemController {
     private final ItemService itemService;
 
     @GetMapping
-    public ResponseEntity<Flux<Item>> buscarItens() {
-        return ResponseEntity.ok(itemService.buscarItens());
+    public Flux<Item> buscarItens() {
+        return itemService.buscarItens();
     }
 
     @GetMapping("/{idItem}")
-    public ResponseEntity<Mono<Item>> buscarItemPeloID(@PathVariable String idItem) {
-        return ResponseEntity.ok(itemService.buscarItemPeloID(idItem));
+    public Mono<Item> buscarItemPeloID(@PathVariable String idItem) {
+        return itemService.buscarItemPeloID(idItem);
     }
 
     @PostMapping
-    public ResponseEntity<Mono<Item>> criarItem(@RequestBody Item item) {
-        return ResponseEntity.ok(itemService.criarItem(item));
+    @ResponseStatus(HttpStatus.CREATED)
+    public Mono<Item> criarItem(@Valid @RequestBody Item item) {
+        return itemService.criarItem(item);
     }
 
     @PatchMapping
-    public ResponseEntity<Mono<Item>> atualizarItem(@RequestBody Item item) {
-        return ResponseEntity.ok(itemService.atualizarItem(item));
+    public Mono<Item> atualizarItem(@Valid @RequestBody Item item) {
+        return itemService.atualizarItem(item);
     }
 
     @DeleteMapping("/{idItem}")
-    public ResponseEntity<Mono<Void>> deleteItem(@PathVariable String idItem) {
-        return ResponseEntity.ok(itemService.deleteItem(idItem));
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Mono<Void> deletarItem(@PathVariable String idItem) {
+        return itemService.deleteItem(idItem);
     }
 
 }

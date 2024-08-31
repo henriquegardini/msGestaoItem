@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class MsGestaoItemApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MsGestaoItemApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(MsGestaoItemApplication.class, args);
+    }
 
 }

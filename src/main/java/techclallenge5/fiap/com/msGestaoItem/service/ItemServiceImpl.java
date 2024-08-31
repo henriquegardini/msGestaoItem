@@ -25,7 +25,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     public Mono<Item> buscarItemPeloID(String id) {
-        return itemRepository.findById(id).switchIfEmpty(monoResponseStatusNotFoundException());
+        return itemRepository.findById(id);
     }
 
     public Mono<Item> criarItem(Item item) {
@@ -33,34 +33,21 @@ public class ItemServiceImpl implements ItemService {
     }
 
     public Mono<Item> atualizarItem(Item item) {
-        var itemBuscado = itemRepository.findById(item.getId()).switchIfEmpty(monoResponseStatusNotFoundException());
+        var itemBuscado = itemRepository.findById(item.getId());
         if (itemBuscado.blockOptional().isPresent()) {
-            var itemAtualizacao = new Item();
-            setarCamposItem(item, itemAtualizacao);
-            return itemRepository.save(itemAtualizacao);
+            return itemRepository.save(item);
         } else {
-            throw new ItemNotFoundException();
+            return Mono.error(new ItemNotFoundException());
         }
     }
 
     public Mono<Void> deleteItem(String idItem) {
-        var item = itemRepository.findById(idItem).switchIfEmpty(monoResponseStatusNotFoundException());
+        var item = itemRepository.findById(idItem);
         if (item.blockOptional().isPresent()) {
             return itemRepository.deleteById(idItem);
         } else {
-            throw new ItemNotFoundException();
+            return Mono.error(new ItemNotFoundException());
         }
     }
 
-    private static void setarCamposItem(Item item, Item itemAtualizado) {
-        itemAtualizado.setId(item.getId());
-        itemAtualizado.setDescricao(item.getDescricao());
-        itemAtualizado.setQuantidade(item.getQuantidade());
-        itemAtualizado.setPrecoUnitario(item.getPrecoUnitario());
-        itemAtualizado.setPrecoTotal(item.getPrecoTotal());
-    }
-
-    public <T> Mono<T> monoResponseStatusNotFoundException() {
-        return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Item não encontrado"));
-    }
 }
