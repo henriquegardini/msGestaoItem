@@ -44,10 +44,6 @@ class ItemServiceImplTest {
 
     @Test
     void devePermitirBuscarItensComSucesso() {
-        var item = ItemHelper.gerarItem();
-        BDDMockito.when(itemRepository.findById(ArgumentMatchers.anyString()))
-                .thenReturn(Mono.just(item));
-
         StepVerifier.create(itemServiceImpl.buscarItens())
                 .expectSubscription()
                 .expectNext(itemMock)

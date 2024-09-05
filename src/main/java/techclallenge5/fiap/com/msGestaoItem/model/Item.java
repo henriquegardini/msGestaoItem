@@ -19,14 +19,14 @@ public class Item {
     @Id
     private String id;
 
+    @NotEmpty(message = "a id do produto não pode estar vazio.")
+    private String idProduto;
+
     @NotEmpty(message = "a descrição não pode estar vazia.")
     private String descricao;
 
     @NotNull(message = "a quantidade não pode estar vazia.")
     private Integer quantidade;
-
-    @NotNull(message = "o preço unitário não pode estar vazio.")
-    private Double precoUnitario;
 
     @NotNull(message = "o preço total não pode estar vazio.")
     private Double precoTotal;
@@ -37,7 +37,6 @@ public class Item {
                 "id='" + id + '\'' +
                 ", descricao='" + descricao + '\'' +
                 ", quantidade='" + quantidade + '\'' +
-                ", precoUnitario='" + precoUnitario + '\'' +
                 ", precoTotal='" + precoTotal + '\'' +
                 '}';
     }
