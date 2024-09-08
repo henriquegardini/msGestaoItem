@@ -1,5 +1,6 @@
 package techclallenge5.fiap.com.msGestaoItem.controller;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
@@ -15,28 +16,27 @@ class ItemControllerTest {
     @InjectMocks
     private ItemController itemController;
     @Mock
-    private ItemServiceImpl itemServiceImplMock;
-    AutoCloseable openMocks;
+    private ItemServiceImpl itemServiceImpl;
 
     private final Item itemMock = ItemHelper.gerarItem();
     private final Item itemAtualizacaoMock = ItemHelper.gerarItemAtualizacao();
 
     @BeforeEach
     public void setUp() {
-        openMocks = MockitoAnnotations.openMocks(this);
-        BDDMockito.when(itemServiceImplMock.buscarItens())
+        MockitoAnnotations.openMocks(this);
+        BDDMockito.when(itemServiceImpl.buscarItens())
                 .thenReturn(Flux.just(itemMock));
 
-        BDDMockito.when(itemServiceImplMock.buscarItemPeloID(ArgumentMatchers.anyLong()))
+        BDDMockito.when(itemServiceImpl.buscarItemPeloID(ArgumentMatchers.anyLong()))
                 .thenReturn(Mono.just(itemMock));
 
-        BDDMockito.when(itemServiceImplMock.criarItem(ItemHelper.gerarItem()))
+        BDDMockito.when(itemServiceImpl.criarItem(itemMock))
                 .thenReturn(Mono.just(itemMock));
 
-        BDDMockito.when(itemServiceImplMock.atualizarItem(ItemHelper.gerarItemAtualizacao()))
+        BDDMockito.when(itemServiceImpl.atualizarItem(itemAtualizacaoMock))
                 .thenReturn(Mono.just(itemAtualizacaoMock));
 
-        BDDMockito.when(itemServiceImplMock.deleteItem(1L))
+        BDDMockito.when(itemServiceImpl.deleteItem(1L))
                 .thenReturn(Mono.empty());
 
     }
@@ -59,9 +59,7 @@ class ItemControllerTest {
 
     @Test
     public void deveCriarItemComSucesso() {
-        var item = ItemHelper.gerarItem();
-
-        StepVerifier.create(itemController.criarItem(item))
+        StepVerifier.create(itemController.criarItem(itemMock))
                 .expectSubscription()
                 .expectNext(itemMock)
                 .verifyComplete();
@@ -69,9 +67,7 @@ class ItemControllerTest {
 
     @Test
     public void deveAtualizarItemComSucesso() {
-        var item = ItemHelper.gerarItemAtualizacao();
-
-        StepVerifier.create(itemController.atualizarItem(item))
+        StepVerifier.create(itemController.atualizarItem(itemAtualizacaoMock))
                 .expectSubscription()
                 .expectNext(itemAtualizacaoMock)
                 .verifyComplete();

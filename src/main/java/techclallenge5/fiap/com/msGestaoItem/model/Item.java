@@ -20,7 +20,7 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "a id do produto não pode estar vazio.")
+    @NotNull(message = "a id do produto não pode estar vazio.")
     private Long idProduto;
 
     @NotEmpty(message = "a descrição não pode estar vazia.")

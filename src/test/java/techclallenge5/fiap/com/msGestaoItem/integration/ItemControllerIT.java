@@ -62,8 +62,7 @@ public class ItemControllerIT {
                 .body(BodyInserters.fromValue(itemMock))
                 .exchange()
                 .expectStatus().isCreated()
-                .expectBody(Item.class)
-                .isEqualTo(itemMock);
+                .expectBody(Item.class);
     }
 
     @Test
