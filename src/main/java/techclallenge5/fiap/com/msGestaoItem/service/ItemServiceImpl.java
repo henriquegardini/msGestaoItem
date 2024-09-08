@@ -24,9 +24,6 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private ItemRepository itemRepository;
 
-    public ItemServiceImpl(ItemRepository itemRepository) {
-    }
-
     public Flux<Item> buscarItens() {
         return itemRepository.findAll();
     }
