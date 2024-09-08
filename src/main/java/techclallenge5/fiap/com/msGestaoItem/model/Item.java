@@ -1,35 +1,35 @@
 package techclallenge5.fiap.com.msGestaoItem.model;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.*;
 
-@Data
+import java.math.BigDecimal;
+
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "itens")
 @Builder
+@Entity
+@Table(name = "item")
 public class Item {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotEmpty(message = "a id do produto não pode estar vazio.")
-    private String idProduto;
+    private Long idProduto;
 
     @NotEmpty(message = "a descrição não pode estar vazia.")
     private String descricao;
 
     @NotNull(message = "a quantidade não pode estar vazia.")
-    private Integer quantidade;
+    private BigDecimal quantidade;
 
-    @NotNull(message = "o preço total não pode estar vazio.")
-    private Double precoTotal;
+    private BigDecimal precoTotal;
 
     @Override
     public String toString() {

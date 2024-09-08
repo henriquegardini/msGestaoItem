@@ -8,7 +8,7 @@ import techclallenge5.fiap.com.msGestaoItem.model.Produto;
 @FeignClient(value = "Produto", url = "http://localhost:8082")
 public interface ProdutoClient {
 
-    @GetMapping(value = "/produto/{id}")
-    Produto getProdutoById(@PathVariable("id") String id);
+    @GetMapping(value = "/precos/obterPreco/{id}")
+    Produto getProdutoById(@PathVariable("id") Long id);
 
 }

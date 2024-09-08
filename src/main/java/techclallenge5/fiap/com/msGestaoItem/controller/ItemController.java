@@ -22,7 +22,7 @@ public class ItemController {
     }
 
     @GetMapping("/{idItem}")
-    public Mono<Item> buscarItemPeloID(@PathVariable String idItem) {
+    public Mono<Item> buscarItemPeloID(@PathVariable Long idItem) {
         return itemService.buscarItemPeloID(idItem);
     }
 
@@ -39,7 +39,7 @@ public class ItemController {
 
     @DeleteMapping("/{idItem}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Mono<Void> deletarItem(@PathVariable String idItem) {
+    public Mono<Void> deletarItem(@PathVariable Long idItem) {
         return itemService.deleteItem(idItem);
     }
 

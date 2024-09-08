@@ -21,20 +21,20 @@ class ItemServiceImplTest {
     @Mock
     private ItemRepository itemRepository;
     AutoCloseable openMocks;
-    private Item itemMock = ItemHelper.gerarItem();
-    private Item itemNaoExistenteMock = ItemHelper.gerarItemNaoExistente();
-    private Item itemAtualizacaoMock = ItemHelper.gerarItemAtualizacao();
+    private final Item itemMock = ItemHelper.gerarItem();
+    private final Item itemNaoExistenteMock = ItemHelper.gerarItemNaoExistente();
+    private final Item itemAtualizacaoMock = ItemHelper.gerarItemAtualizacao();
 
     @BeforeEach
     void setUp() {
         openMocks = MockitoAnnotations.openMocks(this);
         itemServiceImpl = new ItemServiceImpl(itemRepository);
         BDDMockito.when(itemRepository.findAll()).thenReturn(Flux.just(itemMock));
-        BDDMockito.when(itemRepository.findById(itemMock.getId())).thenReturn(Mono.just(itemMock));
-        BDDMockito.when(itemRepository.findById(itemNaoExistenteMock.getId())).thenReturn(Mono.empty());
+        BDDMockito.when(itemRepository.findById(itemMock.getId().toString())).thenReturn(Mono.just(itemMock));
+        BDDMockito.when(itemRepository.findById(itemNaoExistenteMock.getId().toString())).thenReturn(Mono.empty());
         BDDMockito.when(itemRepository.save(ItemHelper.gerarItem())).thenReturn(Mono.just(itemMock));
         BDDMockito.when(itemRepository.save(ItemHelper.gerarItemAtualizacao())).thenReturn(Mono.just(itemAtualizacaoMock));
-        BDDMockito.when(itemRepository.deleteById(itemMock.getId())).thenReturn(Mono.empty());
+        BDDMockito.when(itemRepository.deleteById(itemMock.getId().toString())).thenReturn(Mono.empty());
     }
 
     @AfterEach
@@ -56,7 +56,7 @@ class ItemServiceImplTest {
         BDDMockito.when(itemRepository.findById(ArgumentMatchers.anyString()))
                 .thenReturn(Mono.just(item));
 
-        StepVerifier.create(itemServiceImpl.buscarItemPeloID("1"))
+        StepVerifier.create(itemServiceImpl.buscarItemPeloID(1L))
                 .expectSubscription()
                 .expectNext(itemMock)
                 .verifyComplete();

@@ -27,7 +27,7 @@ class ItemControllerTest {
         BDDMockito.when(itemServiceImplMock.buscarItens())
                 .thenReturn(Flux.just(itemMock));
 
-        BDDMockito.when(itemServiceImplMock.buscarItemPeloID(ArgumentMatchers.anyString()))
+        BDDMockito.when(itemServiceImplMock.buscarItemPeloID(ArgumentMatchers.anyLong()))
                 .thenReturn(Mono.just(itemMock));
 
         BDDMockito.when(itemServiceImplMock.criarItem(ItemHelper.gerarItem()))
@@ -36,7 +36,7 @@ class ItemControllerTest {
         BDDMockito.when(itemServiceImplMock.atualizarItem(ItemHelper.gerarItemAtualizacao()))
                 .thenReturn(Mono.just(itemAtualizacaoMock));
 
-        BDDMockito.when(itemServiceImplMock.deleteItem("1"))
+        BDDMockito.when(itemServiceImplMock.deleteItem(1L))
                 .thenReturn(Mono.empty());
 
     }
