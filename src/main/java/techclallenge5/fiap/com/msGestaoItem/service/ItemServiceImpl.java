@@ -2,6 +2,7 @@ package techclallenge5.fiap.com.msGestaoItem.service;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -14,18 +15,13 @@ import techclallenge5.fiap.com.msGestaoItem.model.Produto;
 import techclallenge5.fiap.com.msGestaoItem.repository.ItemRepository;
 
 @Service
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private ProdutoClient produtoClient;
-
     @Autowired
     private ItemRepository itemRepository;
-
-    public ItemServiceImpl(ItemRepository itemRepository) {
-    }
 
     public Flux<Item> buscarItens() {
         return itemRepository.findAll();

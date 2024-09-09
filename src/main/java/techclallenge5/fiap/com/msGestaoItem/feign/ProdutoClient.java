@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import techclallenge5.fiap.com.msGestaoItem.model.Produto;
 
-@FeignClient(value = "Produto", url = "http://localhost:8082")
+@FeignClient(value = "produtoClient", url = "http://localhost:8086")
 public interface ProdutoClient {
 
     @GetMapping(value = "/precos/obterPreco/{id}")
