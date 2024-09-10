@@ -2,37 +2,52 @@ package techclallenge5.fiap.com.msGestaoItem.utils;
 
 import reactor.core.publisher.Mono;
 import techclallenge5.fiap.com.msGestaoItem.model.Item;
+import techclallenge5.fiap.com.msGestaoItem.model.Produto;
 import techclallenge5.fiap.com.msGestaoItem.repository.ItemRepository;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public abstract class ItemHelper {
 
     public static Item gerarItem() {
         return Item.builder()
-                .id("1")
+                .id(1L)
+                .idProduto(11L)
                 .descricao("descricao")
-                .quantidade(1)
-                .precoUnitario(100.0)
-                .precoTotal(100.0)
+                .quantidade(BigDecimal.ONE)
+                .precoTotal(BigDecimal.TEN)
                 .build();
     }
 
     public static Item gerarItemNaoExistente() {
         return Item.builder()
-                .id("2")
+                .id(2L)
+                .idProduto(12L)
                 .descricao("descricao")
-                .quantidade(1)
-                .precoUnitario(100.0)
-                .precoTotal(100.0)
+                .quantidade(BigDecimal.ONE)
+                .precoTotal(BigDecimal.TEN)
                 .build();
     }
 
     public static Item gerarItemAtualizacao() {
         return Item.builder()
-                .id("1")
+                .id(1L)
+                .idProduto(11L)
                 .descricao("descricao atualizado")
-                .quantidade(2)
-                .precoUnitario(100.0)
-                .precoTotal(200.0)
+                .quantidade(BigDecimal.ONE)
+                .precoTotal(BigDecimal.TEN)
+                .build();
+    }
+
+    public static Produto gerarProduto() {
+        return Produto.builder()
+                .produtoId(11L)
+                .precoNormal(BigDecimal.valueOf(100.00))
+                .dataInicioPromocao(LocalDate.now())
+                .dataFimPromocao(LocalDate.now())
+                .precoPromocional(BigDecimal.valueOf(99.99))
+                .precoAtualUnitario(BigDecimal.valueOf(99.99))
                 .build();
     }
 

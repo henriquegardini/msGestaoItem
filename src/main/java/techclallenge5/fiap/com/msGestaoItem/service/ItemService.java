@@ -9,12 +9,12 @@ public interface ItemService {
 
     Flux<Item> buscarItens();
 
-    Mono<Item> buscarItemPeloID(String idItem);
+    Mono<Item> buscarItemPeloID(Long idItem);
 
     Mono<Item> criarItem(Item item);
 
     Mono<Item> atualizarItem(Item item);
 
-    Mono<Void> deleteItem(String idItem);
+    Mono<Void> deleteItem(Long idItem);
 
 }
