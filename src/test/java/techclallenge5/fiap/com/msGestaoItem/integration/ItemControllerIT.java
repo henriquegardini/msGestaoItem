@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +15,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 import reactor.core.publisher.Mono;
+import techclallenge5.fiap.com.msGestaoItem.feign.ProdutoClient;
 import techclallenge5.fiap.com.msGestaoItem.model.Item;
+import techclallenge5.fiap.com.msGestaoItem.model.Produto;
 import techclallenge5.fiap.com.msGestaoItem.repository.ItemRepository;
 import techclallenge5.fiap.com.msGestaoItem.utils.ItemHelper;
 
@@ -25,16 +28,23 @@ public class ItemControllerIT {
 
     @MockBean
     private ItemRepository itemRepository;
+    @MockBean
+    private ProdutoClient produtoClient;
     @Autowired
     private WebTestClient client;
 
     private final Item itemMock = ItemHelper.gerarItem();
     private final Item itemNaoExistenteMock = ItemHelper.gerarItemNaoExistente();
+    private final Produto produto = ItemHelper.gerarProduto();
 
     @BeforeEach
     public void setUp() {
-        BDDMockito.when(itemRepository.findById(itemMock.getId().toString())).thenReturn(Mono.just(itemMock));
-        BDDMockito.when(itemRepository.save(itemMock)).thenReturn(Mono.just(itemMock));
+        BDDMockito.when(itemRepository.findById(itemMock.getId().toString()))
+                .thenReturn(Mono.just(itemMock));
+        BDDMockito.when(itemRepository.save(itemMock))
+                .thenReturn(Mono.just(itemMock));
+        BDDMockito.when(produtoClient.getProdutoById(itemMock.getIdProduto()))
+                .thenReturn(produto);
     }
 
     @Test

@@ -1,14 +1,16 @@
 package techclallenge5.fiap.com.msGestaoItem.controller;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
+import org.mockito.BDDMockito;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 import techclallenge5.fiap.com.msGestaoItem.model.Item;
-import techclallenge5.fiap.com.msGestaoItem.service.ItemServiceImpl;
+import techclallenge5.fiap.com.msGestaoItem.service.ItemService;
 import techclallenge5.fiap.com.msGestaoItem.utils.ItemHelper;
 
 class ItemControllerTest {
@@ -16,27 +18,26 @@ class ItemControllerTest {
     @InjectMocks
     private ItemController itemController;
     @Mock
-    private ItemServiceImpl itemServiceImpl;
+    private ItemService itemService;
 
     private final Item itemMock = ItemHelper.gerarItem();
-    private final Item itemAtualizacaoMock = ItemHelper.gerarItemAtualizacao();
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        BDDMockito.when(itemServiceImpl.buscarItens())
+        BDDMockito.when(itemService.buscarItens())
                 .thenReturn(Flux.just(itemMock));
 
-        BDDMockito.when(itemServiceImpl.buscarItemPeloID(ArgumentMatchers.anyLong()))
+        BDDMockito.when(itemService.buscarItemPeloID(itemMock.getId()))
                 .thenReturn(Mono.just(itemMock));
 
-        BDDMockito.when(itemServiceImpl.criarItem(itemMock))
+        BDDMockito.when(itemService.criarItem(itemMock))
                 .thenReturn(Mono.just(itemMock));
 
-        BDDMockito.when(itemServiceImpl.atualizarItem(itemAtualizacaoMock))
-                .thenReturn(Mono.just(itemAtualizacaoMock));
+        BDDMockito.when(itemService.atualizarItem(itemMock))
+                .thenReturn(Mono.just(itemMock));
 
-        BDDMockito.when(itemServiceImpl.deleteItem(1L))
+        BDDMockito.when(itemService.deleteItem(itemMock.getId()))
                 .thenReturn(Mono.empty());
 
     }
@@ -67,9 +68,9 @@ class ItemControllerTest {
 
     @Test
     public void deveAtualizarItemComSucesso() {
-        StepVerifier.create(itemController.atualizarItem(itemAtualizacaoMock))
+        StepVerifier.create(itemController.atualizarItem(itemMock))
                 .expectSubscription()
-                .expectNext(itemAtualizacaoMock)
+                .expectNext(itemMock)
                 .verifyComplete();
     }
 

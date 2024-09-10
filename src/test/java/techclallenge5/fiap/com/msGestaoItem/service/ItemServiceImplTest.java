@@ -1,10 +1,12 @@
 
 package techclallenge5.fiap.com.msGestaoItem.service;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
+import org.mockito.BDDMockito;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -32,10 +34,10 @@ class ItemServiceImplTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        itemServiceImpl = new ItemServiceImpl(produtoClient, itemRepository);
-        BDDMockito.when(produtoClient.getProdutoById(itemMock.getId()))
+        itemServiceImpl = new ItemServiceImpl(itemRepository, produtoClient);
+        BDDMockito.when(produtoClient.getProdutoById(itemMock.getIdProduto()))
                 .thenReturn(produto);
-        BDDMockito.when(produtoClient.getProdutoById(itemAtualizacaoMock.getId()))
+        BDDMockito.when(produtoClient.getProdutoById(itemAtualizacaoMock.getIdProduto()))
                 .thenReturn(produto);
         BDDMockito.when(itemRepository.findAll())
                 .thenReturn(Flux.just(itemMock));
