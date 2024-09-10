@@ -34,7 +34,6 @@ class ItemServiceImplTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        itemServiceImpl = new ItemServiceImpl(itemRepository, produtoClient);
         BDDMockito.when(produtoClient.getProdutoById(itemMock.getIdProduto()))
                 .thenReturn(produto);
         BDDMockito.when(produtoClient.getProdutoById(itemAtualizacaoMock.getIdProduto()))

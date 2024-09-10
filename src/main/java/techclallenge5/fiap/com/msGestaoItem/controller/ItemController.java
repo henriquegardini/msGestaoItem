@@ -1,7 +1,6 @@
 package techclallenge5.fiap.com.msGestaoItem.controller;
 
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +11,14 @@ import techclallenge5.fiap.com.msGestaoItem.service.ItemService;
 
 @RestController
 @RequestMapping("/item")
-@RequiredArgsConstructor
 public class ItemController {
 
     private final ItemService itemService;
+
+    @Autowired
+    public ItemController(ItemService itemService) {
+        this.itemService = itemService;
+    }
 
     @GetMapping
     public Flux<Item> buscarItens() {
