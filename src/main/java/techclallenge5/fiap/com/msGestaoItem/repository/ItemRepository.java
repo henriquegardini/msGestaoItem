@@ -5,7 +5,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import techclallenge5.fiap.com.msGestaoItem.model.Item;
 
-public interface ItemRepository extends ReactiveCrudRepository<Item, String> {
+public interface ItemRepository extends ReactiveCrudRepository<Item, Long> {
 
     Flux<Item> findAll();
 
