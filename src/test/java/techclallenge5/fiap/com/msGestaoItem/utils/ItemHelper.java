@@ -12,7 +12,7 @@ public abstract class ItemHelper {
 
     public static Item gerarItem() {
         return Item.builder()
-                .id(1L)
+                .id("1")
                 .idProduto(11L)
                 .descricao("descricao")
                 .quantidade(BigDecimal.ONE)
@@ -22,7 +22,7 @@ public abstract class ItemHelper {
 
     public static Item gerarItemNaoExistente() {
         return Item.builder()
-                .id(2L)
+                .id("2")
                 .idProduto(12L)
                 .descricao("descricao")
                 .quantidade(BigDecimal.ONE)
@@ -32,7 +32,7 @@ public abstract class ItemHelper {
 
     public static Item gerarItemAtualizacao() {
         return Item.builder()
-                .id(1L)
+                .id("1")
                 .idProduto(11L)
                 .descricao("descricao atualizado")
                 .quantidade(BigDecimal.ONE)

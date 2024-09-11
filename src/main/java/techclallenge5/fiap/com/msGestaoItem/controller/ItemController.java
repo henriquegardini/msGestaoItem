@@ -1,7 +1,6 @@
 package techclallenge5.fiap.com.msGestaoItem.controller;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -15,7 +14,6 @@ public class ItemController {
 
     private final ItemService itemService;
 
-    @Autowired
     public ItemController(ItemService itemService) {
         this.itemService = itemService;
     }
@@ -26,7 +24,7 @@ public class ItemController {
     }
 
     @GetMapping("/{idItem}")
-    public Mono<Item> buscarItemPeloID(@PathVariable Long idItem) {
+    public Mono<Item> buscarItemPeloID(@PathVariable String idItem) {
         return itemService.buscarItemPeloID(idItem);
     }
 
@@ -43,7 +41,7 @@ public class ItemController {
 
     @DeleteMapping("/{idItem}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Mono<Void> deletarItem(@PathVariable Long idItem) {
+    public Mono<Void> deletarItem(@PathVariable String idItem) {
         return itemService.deleteItem(idItem);
     }
 
