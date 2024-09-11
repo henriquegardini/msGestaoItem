@@ -40,15 +40,15 @@ class ItemServiceImplTest {
                 .thenReturn(produto);
         BDDMockito.when(itemRepository.findAll())
                 .thenReturn(Flux.just(itemMock));
-        BDDMockito.when(itemRepository.findById(itemMock.getId().toString()))
+        BDDMockito.when(itemRepository.findById(itemMock.getId()))
                 .thenReturn(Mono.just(itemMock));
-        BDDMockito.when(itemRepository.findById(itemNaoExistenteMock.getId().toString()))
+        BDDMockito.when(itemRepository.findById(itemNaoExistenteMock.getId()))
                 .thenReturn(Mono.empty());
         BDDMockito.when(itemRepository.save(itemMock))
                 .thenReturn(Mono.just(itemMock));
         BDDMockito.when(itemRepository.save(itemAtualizacaoMock))
                 .thenReturn(Mono.just(itemAtualizacaoMock));
-        BDDMockito.when(itemRepository.deleteById(itemMock.getId().toString()))
+        BDDMockito.when(itemRepository.deleteById(itemMock.getId()))
                 .thenReturn(Mono.empty());
     }
 

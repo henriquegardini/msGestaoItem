@@ -9,8 +9,8 @@ public interface ItemRepository extends ReactiveCrudRepository<Item, Long> {
 
     Flux<Item> findAll();
 
-    Mono<Item> findById(String idItem);
+    Mono<Item> findById(Long idItem);
 
-    Mono<Void> deleteById(String idItem);
+    Mono<Void> deleteById(Long idItem);
 
 }

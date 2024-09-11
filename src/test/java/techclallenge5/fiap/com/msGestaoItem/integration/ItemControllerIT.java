@@ -39,7 +39,7 @@ public class ItemControllerIT {
 
     @BeforeEach
     public void setUp() {
-        BDDMockito.when(itemRepository.findById(itemMock.getId().toString()))
+        BDDMockito.when(itemRepository.findById(itemMock.getId()))
                 .thenReturn(Mono.just(itemMock));
         BDDMockito.when(itemRepository.save(itemMock))
                 .thenReturn(Mono.just(itemMock));

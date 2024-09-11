@@ -28,7 +28,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     public Mono<Item> buscarItemPeloID(Long id) {
-        return itemRepository.findById(id.toString());
+        return itemRepository.findById(id);
     }
 
     public Mono<Item> criarItem(Item item) {
@@ -38,7 +38,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     public Mono<Item> atualizarItem(Item item) {
-        var itemBuscado = itemRepository.findById(item.getId().toString());
+        var itemBuscado = itemRepository.findById(item.getId());
         if (itemBuscado.blockOptional().isPresent()) {
             var produto = buscaProduto(item.getIdProduto());
             calcularPrecoTotal(item, produto);
@@ -49,9 +49,9 @@ public class ItemServiceImpl implements ItemService {
     }
 
     public Mono<Void> deleteItem(Long idItem) {
-        var item = itemRepository.findById(idItem.toString());
+        var item = itemRepository.findById(idItem);
         if (item.blockOptional().isPresent()) {
-            return itemRepository.deleteById(idItem.toString());
+            return itemRepository.deleteById(idItem);
         } else {
             return Mono.error(new ItemNotFoundException());
         }
