@@ -27,7 +27,7 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository.findAll();
     }
 
-    public Mono<Item> buscarItemPeloID(Long id) {
+    public Mono<Item> buscarItemPeloID(String id) {
         return itemRepository.findById(id);
     }
 
@@ -48,7 +48,7 @@ public class ItemServiceImpl implements ItemService {
         }
     }
 
-    public Mono<Void> deleteItem(Long idItem) {
+    public Mono<Void> deleteItem(String idItem) {
         var item = itemRepository.findById(idItem);
         if (item.blockOptional().isPresent()) {
             return itemRepository.deleteById(idItem);
