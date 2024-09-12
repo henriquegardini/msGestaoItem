@@ -17,6 +17,7 @@ O projeto **msGestaoItem** é um microserviço dedicado à gestão de itens util
 - Java 17+
 - Spring Boot 3.x
 - Maven 3.x
+- MongoDB
 
 ## Estrutura do Projeto
 
